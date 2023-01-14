@@ -4,6 +4,8 @@ const timeSpan = document.getElementById('timeSpan')
 const scoreText = document.getElementById('score')
 const endGame = document.getElementById('end-game-container')
 const div = document.querySelector('.main')
+const backButton = document.querySelector('.back-btn')
+
 
 const words = [
   'californication',
@@ -87,6 +89,8 @@ input.addEventListener('input', (e) =>{
     updateScore()
   }
 })
+
+backButton.onclick = () => window.history.back()
 
 const init = () => {
   rndWord(words)

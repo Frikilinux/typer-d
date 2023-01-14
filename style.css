@@ -103,3 +103,21 @@ button {
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+.back-button {
+  top: 15px;
+  left: 15px;
+  position: absolute;
+  color: var(--fg);
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.back-btn {
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: var(--btn);
+}
