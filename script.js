@@ -6,7 +6,6 @@ const endGame = document.getElementById('end-game-container')
 const div = document.querySelector('.main')
 const backButton = document.querySelector('.back-btn')
 
-
 const words = [
   'californication',
   'plataforma5',
@@ -26,15 +25,15 @@ const words = [
   'dylan',
   'zephyr',
   'funky',
-  'chili'
-];
+  'chili',
+]
 
-let palabraIngresada = ''
-let palabraAleatoria = ''
+let palabraAleatoria
 let time = 10.0
 let score = 0
 
-const rndWord = (arr) => palabraAleatoria = arr[Math.floor(Math.random() * arr.length)]
+const rndWord = (arr) =>
+  (palabraAleatoria = arr[Math.floor(Math.random() * arr.length)])
 
 const addToDOM = () => {
   rndWord(words)
@@ -44,17 +43,12 @@ const addToDOM = () => {
 
 const actualizarTiempo = () => {
   time -= 0.1
+  time <= 0 && gameOver()
   timeSpan.textContent = `${time.toFixed(1).toString().padStart(4, '0')}`
-  time <= 5 
-    ? timeSpan.style.color = 'var(--btn)'
-    : timeSpan.style.color = 'inherit'
-  time <= 0
-    ? (clearInterval(timeInterval),
-      gameOver())
-    : ''
+  timeSpan.style.color = time <= 5 ? 'var(--btn)' : 'inherit'
 }
 
-let timeInterval = setInterval(actualizarTiempo, 100);
+const timeInterval = setInterval(actualizarTiempo, 100)
 
 const updateScore = () => {
   score++
@@ -62,6 +56,8 @@ const updateScore = () => {
 }
 
 const gameOver = () => {
+  clearInterval(timeInterval)
+
   div.style.display = 'none'
   endGame.style.display = 'flex'
 
@@ -80,22 +76,21 @@ const gameOver = () => {
   button.focus()
 }
 
-input.addEventListener('input', (e) =>{
-  palabraIngresada = e.target.value
+const handleInput = (e) => {
+  const palabraIngresada = e.target.value
   if (palabraAleatoria === palabraIngresada) {
     time += 3
     input.value = ''
     addToDOM()
     updateScore()
   }
-})
-
-backButton.onclick = () => window.history.back()
+}
 
 const init = () => {
-  rndWord(words)
+  input.addEventListener('input', handleInput)
   addToDOM()
   input.focus()
+  backButton.onclick = () => window.history.back()
 }
 
 init()
